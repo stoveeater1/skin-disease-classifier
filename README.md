@@ -54,6 +54,8 @@ imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output
 
 This is an example of what your command should look like after you replace the fill-ins.
 
+https://www.kaggle.com/datasets/stoveeater/skin-fungus-dataset
+
 imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/vasc/vasc7.jpg $DATASET/output/test1.jpg
 
 Look at your results by opening the image that just saved in the 'output' folder! This folder should be located in jetson-inference/python/training/classification/data/skincancerdata/output
