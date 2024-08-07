@@ -20,8 +20,7 @@ The fact that just a single, simple diagnosis could take up to 4 months to make 
 
 1. Set up an SSH conection with your Jetson Nano.
 2. Open a new terminal.
-3. Run this command to update your installer: sudo apt-get update. You will be prompted to enter your password.
-
+3. Run this command to update your installer: sudo apt-get update. Here, you will enter your password.
 sudo apt-get update
 
 Run this command to install cmake
