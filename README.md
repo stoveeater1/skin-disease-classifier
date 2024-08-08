@@ -94,4 +94,4 @@ Here is an example of what your command should look like:
 
 The results should automatically go into the classification folder, and double click a picture to view the AI's classification and confidence.
 
-[View a video explanation here](video link)
+[[This is a video of me showing how to use the AI and testing it.](video link)](https://youtu.be/hg8TXBfoATc)
