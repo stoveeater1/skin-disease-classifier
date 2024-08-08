@@ -19,45 +19,76 @@ The fact that just a single, simple diagnosis could take up to 4 months to make 
 ## Running this project
 
 1. Set up an SSH conection with your Jetson Nano.
+
 2. Open a new terminal.
-3. Run this command to update your installer: sudo apt-get update. Here, you will enter your password.
-sudo apt-get update
+  
+3. Run this command to update your installer: ```sudo apt-get update```
 
-Run this command to install cmake
-sudo apt-get install git cmake
+4. Enter your password to continue.
 
-Use cd commands to change directories until you are in your jetson-inference/python/training/classification/data
-cd jetson-inference/python/training/classification/data
+5. Run this command to install cmake: ```sudo apt-get install git cmake```
 
-Run this command to download the image dataset.
-git clone --recursive https://github.com/isamarquezg/skincancerdata
+6. Clone the jetson-inference project: ```git clone --recursive https://github.com/dusty-nv/jetson-inference```
 
-cd back to 'classification' directory, and then cd into the 'models' directory
-cd .. cd models
+7. Change into the newly created jetson-inference folder: ```cd jetson-inference```
 
-Run this command to download the skin cancer classification model.
-git clone --recursive  https://github.com/isamarquezg/skincancer
+8. Update the contents of the folder: ```git submodule update --init```
 
-cd back to 'classification' directory
-cd ..
+9. Install the python processes necessary to run the AI: ```sudo apt-get install libpython3-dev python3-numpy```
 
-Use the following command to make sure that the model is on the nano. You should see a file called resnet18.onnx.
-ls models/skincancer/
+10. Switch to the jetson-inference directory and make a build directory to build your project into: ```mkdir build```
 
-Set the NET and DATASET variables by running each of these commands separately
-NET=models/skincancer
+11. Switch to the build directory: ```cd build```
 
-DATASET=data/skincancerdata
+12. Build the project with this command: ```cmake ../```
 
-Run this command try the model and see how it operates on an image from the test folder!! Change 'NAME HERE' to name your output file and rename 'NAME OF CATEGORY' and 'IMAGE NAME'
-imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/NAME OF CATEGORY/IMAGE NAME .jpg $DATASET/output/NAME OUTPUT.jpg
+13. Switch to the build directory if not already in it. Run this command to run make the python files: ```make```
 
-This is an example of what your command should look like after you replace the fill-ins.
+14. Run this command to install make. ```sudo make install```
 
-https://www.kaggle.com/datasets/stoveeater/skin-fungus-dataset
+15. Configure the make command: ```sudo ldconfig.```
 
-imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/vasc/vasc7.jpg $DATASET/output/test1.jpg
+16. Download the skin disease dataset at https://www.kaggle.com/datasets/stoveeater/skin-fungus-dataset
 
-Look at your results by opening the image that just saved in the 'output' folder! This folder should be located in jetson-inference/python/training/classification/data/skincancerdata/output
+17. Extract the elements of the zip file and drag the extracted folder into jetson-inference > python > training > classification > data
+
+18. cd back into jetson-inference.
+
+19. Run this command to allot more memory for the program: ```echo 1 | sudo tee /proc/sys/vm/overcommit_memory```
+
+20. Run the docker with this command: ```./docker/run.sh```
+
+21. Enter your password when prompted.
+
+22. cd into jetson-inference/python/training/classification.
+
+23. Run this code to start training the AI based on the dataset: ```python3 train.py --model-dir=models/skin-disease-dataset data/skin-disease-dataset --epochs=35```
+
+24. To increase or decrease the amount of training the AI model receives, increase or decrease the number in ```--epochs=35``` respectively.
+
+25. Once the model has finished training, cd into jetson-inference/python/training/classification.
+
+26. Export the model into onnx: ```python3 onnx_export.py --model-dir=models/skin-disease-dataset```
+
+27. Use ctrl+D to exit the docker.
+
+28. cd into jetson-inference/python/training/classification.
+
+29. Run these commands to set up variables needed for image processing:
+
+```
+NET=models/skin-disease-dataset
+```
+```
+DATASET=data/skin-disease-dataset
+```
+
+30. Run this command try an image from the test folder. Change 'NAME HERE' to name your output file, rename 'NAME OF CATEGORY' to the category of what you want to test, rename 'IMAGE NAME' to the name of the image. You can rename the image first in the side menu to customize the name.
+```imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/NAME OF CATEGORY/IMAGE NAME .jpg $DATASET/output/OUTPUT NAME.jpg```
+
+Here is an example of what your command should look like:
+```imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/ringworm/ringworm_0.jpg ringworm_test_0.jpg```
+
+The results should automatically go into the classification folder, and double click a picture to view the AI's classification and confidence.
 
 [View a video explanation here](video link)
