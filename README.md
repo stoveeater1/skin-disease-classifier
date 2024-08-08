@@ -84,7 +84,8 @@ DATASET=data/skin-disease-dataset
 ```
 
 30. Run this command try an image from the test folder. Change 'NAME HERE' to name your output file, rename 'NAME OF CATEGORY' to the category of what you want to test, rename 'IMAGE NAME' to the name of the image. You can rename the image first in the side menu to customize the name.
-```imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/NAME OF CATEGORY/IMAGE NAME .jpg $DATASET/output/OUTPUT NAME.jpg```
+
+```imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/'NAME OF CATEGORY'/'IMAGE NAME'.jpg $DATASET/output/OUTPUT NAME.jpg```
 
 Here is an example of what your command should look like:
 ```imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/ringworm/ringworm_0.jpg ringworm_test_0.jpg```
